@@ -1,0 +1,91 @@
+Nursing Home Database:
+
+Project Overview:
+
+This database contains the informations of a nursing home, where every patient is supervised by his/her doctor
+and they are assigned in a certain cabin. And every cabin has a certain nurse.
+
+Database Overview:
+
+The database contains the following tables:
+
+1. Doctor: This table contains id, name, degree, special field, visiting time, doctor's fee, contact, patient count and the account balance of 
+           the doctors. Id is primary key. Contact is unique. Patient count increases for a doctor when a patient is inserted and the doctor is 
+		   assigned for the patient.
+
+2. Nurse: This table contains id, name, experience and salary of a nurse. Id is primary key. When a nurse is inserted her initial 
+		  experinence becomes zero and an initial salary is inserted. But when experience increases, salary also increases.
+
+3. Cabin: This table contains cabin_no, floor, cabin category, vacancy, cabin cost, assigned_nurse for the cabin.
+		  Cabin_no is the primary key. Assigned_nurse is the foriegn key from the nurse table.
+
+4. Patient: This table contains id, name, age, cabin, doctor's id, contact, birthday, admission_date, releasing_date of a patient.
+			Id is the primary key. Age is calculated from the birthday and admission_date. Cabin and doctor's id is the foreign key from 
+			cabin and doctor table accordingly.
+
+
+
+Functionality and Design:
+
+Triggers:
+	
+	1.Trigger's Name: "in_nurse"
+	  Description: When a new nurse is inserted this trigger sets its intial experience = 0 and initial salary = 5000;
+
+	2.Trigger's Name: "up_nurse"
+	  Description: When the experience of a nurse increases, this trigger increases the salary of the nurse.
+
+	3.Trigger's Name: "up_cabin"
+	  Description: Every cabin has an assigned_nurse. If a nurse is deleted then this trigger assign another nurse in
+	  			   that cabin.
+
+	4.Trigger's Name: "count_pat"
+	  Description: When a patient is inserted, this trigger increases the patient count of the assigned_doctor.
+
+	5.Trigger's Name: "cabin_up"
+	  Description: When a patient is admitted in a cabin, this trigger updates the vacancy of the cabin as "Booked"
+	  			   and when the patient releases, this trigger updates the vacancy of the cabin as "Vacant".
+
+	6.Trigger's Name: "age"
+	  Description: This trigger calculate the age of a patient from his/her birthday and admission_date and updates the 
+	  			   'age' column of the patient.
+
+	7.Trigger's Name: "d_acc"
+	  Description: This trigger calculates the spending days of a patient in the nursing home and check the assigned doctor's
+	  			   per day fee. Then it calculates the doctor's bill and updates the doctor's account balance.
+
+
+
+Functions and Procedures:
+
+	1. Function name: "read"
+	   Description: This function reads the data from a 'Nurse.csv' file, and inserts the data in the nurse table.
+
+	2. Procedure name: "allPayment"
+	   Description: This procedure calculates the cabin bill, doctor's bill and total bill for a patient.
+
+	3. Function name: "getPatientCharge"   		
+	   Description: This function call the "allPayment" procedure and writes the cabin bill, doctor's bill and total bill for 
+					every released patient in a file.
+
+
+Cursors:
+
+	1.Cursor Name: "cur_doct"
+	  Description: 	This cursor prints all informations about "Neuro Surgeon".
+
+	2.Cursor Name: "cur_pat"
+	  Description: This cursor prints patient's name with assigned doctor's name and assigned nurse's name.
+
+	3.Cursor Name: "cur_pc"
+	  Description: This cursor prints information of each doctor from every department whose patient count is maximum in that department. 
+
+	4.Cursor Name: "cur_bill"
+	  Description: This cursor prints cabin bill, doctor's bill and total bill for all released patient. 
+
+
+
+Summary:
+
+This database project was an attempt to represent a nursing home database. It was tried to cover all the features for a nursing home database. But in real life, this project should be included more features. But as a beginner of database system concepts I have tried to cover all basic things for this project in a small range.
+
